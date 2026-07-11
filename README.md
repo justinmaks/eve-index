@@ -1,5 +1,9 @@
 # EVE Index
 
+[![CI](https://github.com/justinmaks/eve-index/actions/workflows/ci.yml/badge.svg)](https://github.com/justinmaks/eve-index/actions/workflows/ci.yml)
+[![Link health](https://github.com/justinmaks/eve-index/actions/workflows/link-health.yml/badge.svg)](https://github.com/justinmaks/eve-index/actions/workflows/link-health.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 EVE Index is an editorial directory of useful third-party tools for [EVE Online](https://www.eveonline.com/). It helps players find active services for combat, exploration, industry, markets, wormholes, intel, and other common activities.
 
 The site is built with Astro and published as static HTML at [index.stin.win](https://index.stin.win/). Listings are reviewed through GitHub. There are no accounts, votes, or paid placements.

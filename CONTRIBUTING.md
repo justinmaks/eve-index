@@ -35,18 +35,6 @@ status: active
 
 Use category and tag values from [`src/data/taxonomy.ts`](src/data/taxonomy.ts). Do not include tracking links, referral codes, rankings, testimonials, or advertising copy. Add Markdown below the frontmatter only when users need important requirements, limitations, or safety notes.
 
-### Favicons
-
-Favicons are optional and must be stored locally.
-
-1. Use the icon URL declared by the service; do not assume `/favicon.ico`.
-2. Add `favicon` and `faviconSource` to the listing.
-3. Keep the local path below `/favicons/`.
-4. Run `npm run sync:favicons` and inspect the result.
-5. Commit the downloaded asset with the listing.
-
-Listings without a usable favicon receive the standard fallback icon.
-
 ## Pull requests
 
 Keep each pull request focused. Explain why the change is useful, disclose any relationship to a submitted tool, and include screenshots for visible interface changes.
