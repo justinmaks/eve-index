@@ -1,11 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { categoryBySlug, faviconPath } from "../lib/sites";
+import { categoryBySlug, faviconUrl } from "../lib/sites";
 interface Props {
   site: CollectionEntry<"sites">;
 }
 const { site } = Astro.props;
-const { name, summary, category, tags } = site.data;
+const { name, summary, category, tags, url } = site.data;
+const initial = name.charAt(0).toUpperCase();
 const searchText = [
   name,
   summary,
@@ -27,12 +28,13 @@ const searchText = [
   <div class="site-card-heading">
     <span class="favicon-tile" aria-hidden="true"
       ><img
-        src={faviconPath(site.data)}
+        src={faviconUrl(url)}
         alt=""
         width="32"
         height="32"
         loading="lazy"
-      /></span
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+      /><span class="favicon-letter" style="display:none">{initial}</span></span
     ><div>
       <p class="site-card-category">{categoryBySlug(category)?.label}</p><h3>
         <a href={`/sites/${site.id}/`}>{name}</a>

@@ -14,8 +14,6 @@ const sites = defineCollection({
     category: z.enum(categorySlugs),
     tags: z.array(z.enum(tags)).min(1).max(5),
     status: z.enum(["active", "archived"]),
-    favicon: z.string().startsWith("/favicons/").optional(),
-    faviconSource: z.string().url().optional(),
   }),
 });
 

@@ -533,6 +533,19 @@ textarea {
   height: 32px;
   object-fit: contain;
 }
+.favicon-letter {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--amber);
+}
+.detail-favicon .favicon-letter {
+  font-size: 1.75rem;
+}
 .site-card-summary {
   margin: 1rem 0;
   color: var(--muted);

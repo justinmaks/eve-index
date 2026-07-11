@@ -42,7 +42,7 @@ Run `npm run test:e2e` for changes that affect pages or browser behavior. If Chr
 
 Tool records live in [`src/content/sites`](src/content/sites/). Categories and tags are defined in [`src/data/taxonomy.ts`](src/data/taxonomy.ts), and all records are validated by [`src/content.config.ts`](src/content.config.ts).
 
-Favicons are cached in [`public/favicons`](public/favicons/) so builds do not depend on third-party sites. Pagefind creates the search index after Astro builds the site.
+Favicons are fetched directly from each listed site at render time, with a letter-based fallback when unavailable. Pagefind creates the search index after Astro builds the site.
 
 ## Contributing
 

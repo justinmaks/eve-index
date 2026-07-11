@@ -19,7 +19,6 @@
 - [ ] The description is neutral and factual.
 - [ ] Category and tags come from `src/data/taxonomy.ts`.
 - [ ] I disclosed any relationship to the listed tool.
-- [ ] Any favicon source and local asset were verified.
 
 ## Screenshots
 

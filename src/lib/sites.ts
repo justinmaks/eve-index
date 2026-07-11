@@ -13,8 +13,12 @@ type SiteFilters = {
   tags: readonly Tag[];
 };
 
-export function faviconPath({ favicon }: { favicon?: string }) {
-  return favicon ?? "/icons/external-link.svg";
+export function faviconUrl(url: string) {
+  try {
+    return `${new URL(url).origin}/favicon.ico`;
+  } catch {
+    return "/icons/external-link.svg";
+  }
 }
 
 export function categoryBySlug(slug: string) {

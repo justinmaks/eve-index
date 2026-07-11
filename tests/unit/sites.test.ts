@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { categoryBySlug, faviconPath, matchesSite } from "../../src/lib/sites";
+import { categoryBySlug, faviconUrl, matchesSite } from "../../src/lib/sites";
 
 const zkillboard = {
   name: "zKillboard",
@@ -18,14 +18,14 @@ describe("site directory helpers", () => {
     });
   });
 
-  it("returns a listing's local favicon path", () => {
-    expect(faviconPath({ favicon: "/favicons/zkillboard.ico" })).toBe(
-      "/favicons/zkillboard.ico",
+  it("derives a favicon URL from the site URL", () => {
+    expect(faviconUrl("https://zkillboard.com/")).toBe(
+      "https://zkillboard.com/favicon.ico",
     );
   });
 
-  it("uses the external-link icon when a listing has no favicon", () => {
-    expect(faviconPath({})).toBe("/icons/external-link.svg");
+  it("falls back when the URL is invalid", () => {
+    expect(faviconUrl("not-a-url")).toBe("/icons/external-link.svg");
   });
 
   it("matches text case-insensitively", () => {
