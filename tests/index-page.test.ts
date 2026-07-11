@@ -12,4 +12,14 @@ describe("the root page", () => {
     expect(page).toMatch(/<h1 id="eve-index-title">EVE Index<\/h1>/);
     expect(page).toContain("EVE Online tools");
   });
+
+  it("uses the canonical site URL, sitemap, and Tailwind Vite plugin", async () => {
+    const config = await readFile(new URL("../astro.config.mjs", import.meta.url), "utf8");
+
+    expect(config).toContain('site: "https://index.stin.win"');
+    expect(config).toContain('import sitemap from "@astrojs/sitemap"');
+    expect(config).toContain("integrations: [sitemap()]");
+    expect(config).toContain('import tailwindcss from "@tailwindcss/vite"');
+    expect(config).toContain("plugins: [tailwindcss()]");
+  });
 });
