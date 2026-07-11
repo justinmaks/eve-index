@@ -1,0 +1,8 @@
+.superpowers/
+docs/design/
+.astro/
+dist/
+node_modules/
+.env
+.env.*
+!.env.example
