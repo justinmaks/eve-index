@@ -1,21 +1,20 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A directory of EVE Online tools." />
-    <title>EVE Index</title>
-  </head>
-  <body>
-    <main aria-labelledby="eve-index-title">
-      <header>
-        <h1 id="eve-index-title">EVE Index</h1>
-        <p>A public directory of EVE Online tools.</p>
-      </header>
-    </main>
-  </body>
-</html>
+<BaseLayout
+  title="EVE Index"
+  description="A focused directory of EVE Online tools for capsuleers."
+>
+  <section id="browse" class="hero scan-grid" aria-labelledby="eve-index-title">
+    <div class="container hero-copy">
+      <p class="eyebrow">Capsuleer Utility Directory</p>
+      <h1 id="eve-index-title">Find the right tool. Get back to space.</h1>
+      <p>
+        A focused, independent index of useful EVE Online tools. The directory interface is coming
+        online next.
+      </p>
+      <p class="console-note">DIRECTORY NODE // INDEXING IN PROGRESS</p>
+    </div>
+  </section>
+</BaseLayout>

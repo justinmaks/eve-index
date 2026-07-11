@@ -1,0 +1,56 @@
+<p id="tq-status" class="tq-status" role="status" aria-live="polite">TQ STATUS // STANDBY</p>
+
+<script>
+  import { formatTqPlayerCount } from "../lib/tq-status";
+
+  const statusElement = document.querySelector<HTMLElement>("#tq-status");
+
+  if (statusElement) {
+    const status = statusElement;
+    let activeRequest: AbortController | undefined;
+
+    async function refreshStatus() {
+      activeRequest?.abort();
+      const request = new AbortController();
+      activeRequest = request;
+      const timeout = window.setTimeout(() => request.abort(), 5_000);
+
+      try {
+        const response = await fetch("https://esi.evetech.net/latest/status/", {
+          signal: request.signal,
+        });
+        const payload: { players?: unknown } = await response.json();
+
+        if (!response.ok || typeof payload.players !== "number") {
+          throw new Error("Unexpected TQ status response");
+        }
+
+        status.textContent = `TQ ONLINE // ${formatTqPlayerCount(payload.players)} CAPSULEERS`;
+      } catch {
+        status.textContent = "TQ STATUS UNAVAILABLE";
+      } finally {
+        window.clearTimeout(timeout);
+        if (activeRequest === request) {
+          activeRequest = undefined;
+        }
+      }
+    }
+
+    void refreshStatus();
+
+    const refreshInterval = window.setInterval(() => {
+      if (document.visibilityState === "visible") {
+        void refreshStatus();
+      }
+    }, 60_000);
+
+    window.addEventListener(
+      "pagehide",
+      () => {
+        activeRequest?.abort();
+        window.clearInterval(refreshInterval);
+      },
+      { once: true },
+    );
+  }
+</script>

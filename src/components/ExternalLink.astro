@@ -1,0 +1,15 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  class?: string;
+}
+
+const { href, label, class: className } = Astro.props;
+---
+
+<a class:list={["external-link", className]} href={href} target="_blank" rel="noopener noreferrer">
+  <span>{label}</span>
+  <span aria-hidden="true">&#8599;</span>
+  <span class="sr-only"> (opens in a new tab)</span>
+</a>
