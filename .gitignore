@@ -1,6 +1,6 @@
 .superpowers/
 .worktrees/
-docs/design/
+docs/
 .astro/
 dist/
 test-results/
