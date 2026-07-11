@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { categoryBySlug, matchesSite } from "../../src/lib/sites";
+import { categoryBySlug, faviconPath, matchesSite } from "../../src/lib/sites";
 
 const zkillboard = {
   name: "zKillboard",
@@ -16,6 +16,16 @@ describe("site directory helpers", () => {
       slug: "abyssal",
       label: "Abyssal",
     });
+  });
+
+  it("returns a listing's local favicon path", () => {
+    expect(faviconPath({ favicon: "/favicons/zkillboard.ico" })).toBe(
+      "/favicons/zkillboard.ico",
+    );
+  });
+
+  it("uses the external-link icon when a listing has no favicon", () => {
+    expect(faviconPath({})).toBe("/icons/external-link.svg");
   });
 
   it("matches text case-insensitively", () => {

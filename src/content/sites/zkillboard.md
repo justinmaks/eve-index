@@ -8,4 +8,6 @@ tags:
   - combat
   - pvp
 status: active
+favicon: /favicons/zkillboard.ico
+faviconSource: https://zkillboard.com/favicon.ico
 ---

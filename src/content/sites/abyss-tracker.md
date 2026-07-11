@@ -7,4 +7,6 @@ tags:
   - abyssal
   - filaments
 status: active
+favicon: /favicons/abyss-tracker.png
+faviconSource: https://abyss.eve-nt.uk/favicon.png
 ---

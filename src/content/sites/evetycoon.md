@@ -7,4 +7,6 @@ tags:
   - markets
   - trade
 status: active
+favicon: /favicons/evetycoon.png
+faviconSource: https://evetycoon.com/favicon.png
 ---
