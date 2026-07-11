@@ -1,0 +1,50 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import ExternalLink from "../../components/ExternalLink.astro";
+import { categoryBySlug, faviconPath } from "../../lib/sites";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const sites = await getCollection(
+    "sites",
+    ({ data }) => data.status === "active",
+  );
+  return sites.map((site) => ({ params: { slug: site.id }, props: { site } }));
+}
+
+interface Props {
+  site: CollectionEntry<"sites">;
+}
+const { site } = Astro.props;
+const { Content } = await render(site);
+const { name, url, summary, category, tags } = site.data;
+const categoryRecord = categoryBySlug(category);
+---
+
+<BaseLayout title={name} description={summary}>
+  <article class="container detail-page">
+    <a class="back-link" href={`/categories/${category}/`}
+      >&#8592; {categoryRecord?.label}</a
+    >
+    <header class="detail-header">
+      <span class="favicon-tile detail-favicon" aria-hidden="true"
+        ><img
+          src={faviconPath(site.data)}
+          alt=""
+          width="48"
+          height="48"
+        /></span
+      >
+      <div>
+        <p class="eyebrow">Verified utility record</p><h1>{name}</h1><p>
+          {summary}
+        </p>
+      </div>
+    </header>
+    <ul class="tag-list" aria-label={`${name} tags`}>
+      {tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+    <div class="editorial-copy"><Content /></div>
+    <ExternalLink class="primary-link" href={url} label={`Visit ${name}`} />
+  </article>
+</BaseLayout>

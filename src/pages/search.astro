@@ -1,0 +1,18 @@
+---
+import PagefindSearch from "../components/PagefindSearch.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Search"
+  description="Search EVE Index tool listings, categories, and editorial pages."
+>
+  <header class="page-header scan-grid">
+    <div class="container narrow">
+      <p class="eyebrow">Full index query</p><h1>Search EVE Index</h1><p>
+        Search tool records, categories, and editorial pages.
+      </p>
+    </div>
+  </header>
+  <div class="container narrow page-content"><PagefindSearch /></div>
+</BaseLayout>

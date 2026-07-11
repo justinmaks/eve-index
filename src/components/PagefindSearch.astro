@@ -1,0 +1,83 @@
+<section class="pagefind-search" data-pagefind-search>
+  <div class="field">
+    <label for="full-site-search">Search the full index</label><input
+      id="full-site-search"
+      type="search"
+      autocomplete="off"
+      placeholder="Enter at least 2 characters"
+    />
+  </div>
+  <p class="search-status" role="status" aria-live="polite" data-search-status>
+    Enter at least 2 characters.
+  </p>
+  <ol class="search-results" data-search-results></ol>
+</section>
+<script>
+  interface PagefindResult {
+    url: string;
+    data(): Promise<{ url: string; meta: { title?: string }; excerpt: string }>;
+  }
+  interface Pagefind {
+    search(query: string): Promise<{ results: PagefindResult[] }>;
+  }
+  const root = document.querySelector<HTMLElement>("[data-pagefind-search]");
+  const input = root?.querySelector<HTMLInputElement>("#full-site-search");
+  const status = root?.querySelector<HTMLElement>("[data-search-status]");
+  const results = root?.querySelector<HTMLOListElement>(
+    "[data-search-results]",
+  );
+  let pagefind: Pagefind | undefined;
+  let requestId = 0;
+
+  const setStatus = (message: string) => {
+    if (status) status.textContent = message;
+  };
+  const loadPagefind = async () => {
+    if (pagefind) return pagefind;
+    // Pagefind is generated after Astro's client bundle has been built.
+    const pagefindUrl = "/pagefind/pagefind.js";
+    const module = (await import(/* @vite-ignore */ pagefindUrl)) as Pagefind;
+    await (module as Pagefind & { init?: () => Promise<void> }).init?.();
+    pagefind = module;
+    return module;
+  };
+
+  input?.addEventListener("input", async () => {
+    const query = input.value.trim();
+    const currentRequest = ++requestId;
+    if (results) results.replaceChildren();
+    if (query.length < 2) {
+      setStatus("Enter at least 2 characters.");
+      return;
+    }
+    setStatus("Searching...");
+    try {
+      const index = await loadPagefind();
+      const response = await index.search(query);
+      const matches = await Promise.all(
+        response.results.slice(0, 20).map((result) => result.data()),
+      );
+      if (currentRequest !== requestId) return;
+      if (!matches.length) {
+        setStatus("No results found.");
+        return;
+      }
+      const items = matches.map((match) => {
+        const item = document.createElement("li");
+        const link = document.createElement("a");
+        const excerpt = document.createElement("p");
+        link.href = match.url;
+        link.textContent = match.meta.title ?? match.url;
+        excerpt.textContent = match.excerpt.replace(/<[^>]+>/g, "");
+        item.append(link, excerpt);
+        return item;
+      });
+      results?.replaceChildren(...items);
+      setStatus(
+        `${matches.length} ${matches.length === 1 ? "result" : "results"}.`,
+      );
+    } catch {
+      if (currentRequest === requestId) setStatus("Search index unavailable.");
+    }
+  });
+</script>

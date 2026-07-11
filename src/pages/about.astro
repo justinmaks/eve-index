@@ -1,0 +1,42 @@
+---
+import ExternalLink from "../components/ExternalLink.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="About"
+  description="How EVE Index selects and maintains useful third-party EVE Online tools."
+>
+  <header class="page-header scan-grid">
+    <div class="container narrow">
+      <p class="eyebrow">Directory protocol</p><h1>About EVE Index</h1><p>
+        An independent, editorially curated directory for finding useful
+        third-party EVE Online tools.
+      </p>
+    </div>
+  </header>
+  <article class="container narrow page-content editorial-copy">
+    <h2>How listings are selected</h2>
+    <p>
+      Every listing is reviewed for direct EVE relevance, an active canonical
+      destination, practical value, and a clear description. Inclusion is not an
+      endorsement, ranking, or paid placement.
+    </p>
+    <h2>Suggest a tool</h2>
+    <p>
+      Suggestions and corrections are reviewed in public through the project
+      issue tracker.
+    </p>
+    <ExternalLink
+      class="primary-link"
+      href="https://github.com/justinmaks/eve-index/issues/new/choose"
+      label="Open the issue tracker"
+    />
+    <h2>Trademark notice</h2>
+    <p>
+      EVE Online and all related logos and marks are trademarks of CCP Games.
+      EVE Index is an independent fan project and is not affiliated with CCP
+      Games.
+    </p>
+  </article>
+</BaseLayout>

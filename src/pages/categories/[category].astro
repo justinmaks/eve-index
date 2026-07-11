@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import Directory from "../../components/Directory.astro";
+import { categories, type CategorySlug } from "../../data/taxonomy";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: { category },
+  }));
+}
+
+interface Props {
+  category: (typeof categories)[number];
+}
+const { category }: Props = Astro.props;
+const sites = (
+  await getCollection(
+    "sites",
+    ({ data }) =>
+      data.status === "active" &&
+      data.category === (category.slug as CategorySlug),
+  )
+).sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+
+<BaseLayout title={category.label} description={category.description}>
+  <header class="page-header scan-grid">
+    <div class="container narrow">
+      <p class="eyebrow">Category record</p><h1>{category.label}</h1><p>
+        {category.description}
+      </p>
+    </div>
+  </header>
+  <div class="container page-content">
+    <Directory sites={sites} heading={`${category.label} tools`} />
+  </div>
+</BaseLayout>
