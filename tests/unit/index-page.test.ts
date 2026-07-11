@@ -3,18 +3,28 @@ import { describe, expect, it } from "vitest";
 
 describe("the root page", () => {
   it("identifies EVE Index as a directory of EVE Online tools", async () => {
-    const page = await readFile(new URL("../../src/pages/index.astro", import.meta.url), "utf8").catch(
-      () => "",
-    );
+    const page = await readFile(
+      new URL("../../src/pages/index.astro", import.meta.url),
+      "utf8",
+    ).catch(() => "");
 
-    expect(page).toMatch(/<title>EVE Index<\/title>/);
-    expect(page).toMatch(/<main aria-labelledby="eve-index-title">/);
-    expect(page).toMatch(/<h1 id="eve-index-title">EVE Index<\/h1>/);
+    expect(page).toMatch(new RegExp(`<BaseLayout\\s+title="EVE Index"`));
+    expect(page).toContain('aria-labelledby="eve-index-title"');
+    expect(page).toMatch(
+      new RegExp(
+        `<h1\\s+id="eve-index-title"[\\s\\S]*Find the right tool\\. Get back to space\\.[\\s\\S]*<\\/h1>`,
+      ),
+    );
     expect(page).toContain("EVE Online tools");
+    expect(page).toContain("<CategoryGrid />");
+    expect(page).toContain("<Directory sites={sites} />");
   });
 
   it("uses the canonical site URL, sitemap, and Tailwind Vite plugin", async () => {
-    const config = await readFile(new URL("../../astro.config.mjs", import.meta.url), "utf8");
+    const config = await readFile(
+      new URL("../../astro.config.mjs", import.meta.url),
+      "utf8",
+    );
 
     expect(config).toContain('site: "https://index.stin.win"');
     expect(config).toContain('import sitemap from "@astrojs/sitemap"');
@@ -24,13 +34,18 @@ describe("the root page", () => {
   });
 
   it("keeps Playwright discovery separate from unit tests", async () => {
-    const packageJson = await readFile(new URL("../../package.json", import.meta.url), "utf8");
+    const packageJson = await readFile(
+      new URL("../../package.json", import.meta.url),
+      "utf8",
+    );
     const playwrightConfig = await readFile(
       new URL("../../playwright.config.ts", import.meta.url),
       "utf8",
     ).catch(() => "");
 
-    expect(packageJson).toContain('"test:e2e": "playwright test --pass-with-no-tests"');
+    expect(packageJson).toContain(
+      '"test:e2e": "playwright test --pass-with-no-tests"',
+    );
     expect(playwrightConfig).toContain('testDir: "./tests/e2e"');
   });
 

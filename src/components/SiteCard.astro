@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { categoryBySlug, faviconPath } from "../lib/sites";
+interface Props {
+  site: CollectionEntry<"sites">;
+}
+const { site } = Astro.props;
+const { name, summary, category, tags } = site.data;
+const searchText = [
+  name,
+  summary,
+  category,
+  categoryBySlug(category)?.label,
+  ...tags,
+]
+  .join(" ")
+  .toLowerCase();
+---
+
+<article
+  class="site-card"
+  data-site-card
+  data-category={category}
+  data-tags={tags.join(" ")}
+  data-search={searchText}
+>
+  <div class="site-card-heading">
+    <span class="favicon-tile" aria-hidden="true"
+      ><img
+        src={faviconPath(site.data)}
+        alt=""
+        width="32"
+        height="32"
+        loading="lazy"
+      /></span
+    ><div>
+      <p class="site-card-category">{categoryBySlug(category)?.label}</p><h3>
+        <a href={`/sites/${site.id}/`}>{name}</a>
+      </h3>
+    </div>
+  </div>
+  <p class="site-card-summary">{summary}</p>
+  <ul class="tag-list" aria-label={`${name} tags`}>
+    {tags.map((tag) => <li>{tag}</li>)}
+  </ul>
+</article>

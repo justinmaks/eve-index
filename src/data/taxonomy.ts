@@ -20,7 +20,8 @@ export const categories = [
   {
     slug: "exploration",
     label: "Exploration",
-    description: "Tools for scanning, relic sites, data sites, and exploration routes.",
+    description:
+      "Tools for scanning, relic sites, data sites, and exploration routes.",
   },
   {
     slug: "abyssal",
@@ -30,7 +31,8 @@ export const categories = [
   {
     slug: "industry-mining",
     label: "Industry & Mining",
-    description: "Tools for production, resource extraction, and industrial planning.",
+    description:
+      "Tools for production, resource extraction, and industrial planning.",
   },
   {
     slug: "planetary-interaction",
@@ -50,7 +52,8 @@ export const categories = [
   {
     slug: "intel-safety",
     label: "Intel & Safety",
-    description: "Tools for intel gathering, route awareness, and pilot safety.",
+    description:
+      "Tools for intel gathering, route awareness, and pilot safety.",
   },
 ] as const satisfies readonly {
   slug: CategorySlug;

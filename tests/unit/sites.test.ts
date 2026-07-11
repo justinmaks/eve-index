@@ -33,7 +33,9 @@ describe("site directory helpers", () => {
   });
 
   it("matches a selected tag", () => {
-    expect(matchesSite(zkillboard, { query: "", tags: ["killmails"] })).toBe(true);
+    expect(matchesSite(zkillboard, { query: "", tags: ["killmails"] })).toBe(
+      true,
+    );
   });
 
   it("rejects a different category", () => {
@@ -43,6 +45,8 @@ describe("site directory helpers", () => {
   });
 
   it("rejects two selected tags when one is absent", () => {
-    expect(matchesSite(zkillboard, { query: "", tags: ["killmails", "abyssal"] })).toBe(false);
+    expect(
+      matchesSite(zkillboard, { query: "", tags: ["killmails", "abyssal"] }),
+    ).toBe(false);
   });
 });

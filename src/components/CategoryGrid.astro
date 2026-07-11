@@ -1,0 +1,25 @@
+---
+import { categories } from "../data/taxonomy";
+---
+
+<nav class="category-nav" aria-labelledby="category-heading">
+  <div class="section-heading">
+    <p class="eyebrow">Browse by operation</p><h2 id="category-heading">
+      Categories
+    </h2>
+  </div>
+  <ul class="category-grid">
+    {
+      categories.map((category) => (
+        <li>
+          <a href={`/categories/${category.slug}/`}>
+            <>
+              <span>{category.label}</span>
+              <span aria-hidden="true">&#8599;</span>
+            </>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

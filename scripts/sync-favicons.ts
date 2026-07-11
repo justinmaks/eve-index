@@ -63,7 +63,10 @@ for (const filePath of listingFiles) {
 
     try {
       await mkdir(path.dirname(destination), { recursive: true });
-      await writeFile(destination, new Uint8Array(await response.arrayBuffer()));
+      await writeFile(
+        destination,
+        new Uint8Array(await response.arrayBuffer()),
+      );
     } catch {
       warn(listing, "favicon write failed");
     }

@@ -1,20 +1,30 @@
 ---
+import { getCollection } from "astro:content";
+import CategoryGrid from "../components/CategoryGrid.astro";
+import Directory from "../components/Directory.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+const sites = (
+  await getCollection("sites", ({ data }) => data.status === "active")
+).sort((a, b) => a.data.name.localeCompare(b.data.name));
 ---
 
 <BaseLayout
   title="EVE Index"
   description="A focused directory of EVE Online tools for capsuleers."
 >
-  <section id="browse" class="hero scan-grid" aria-labelledby="eve-index-title">
+  <section class="hero scan-grid" aria-labelledby="eve-index-title">
     <div class="container hero-copy">
-      <p class="eyebrow">Capsuleer Utility Directory</p>
-      <h1 id="eve-index-title">Find the right tool. Get back to space.</h1>
-      <p>
-        A focused, independent index of useful EVE Online tools. The directory interface is coming
-        online next.
-      </p>
-      <p class="console-note">DIRECTORY NODE // INDEXING IN PROGRESS</p>
+      <p class="eyebrow">Capsuleer Utility Directory</p><h1
+        id="eve-index-title"
+      >
+        Find the right tool. Get back to space.
+      </h1><p>
+        A focused, independent index of useful EVE Online tools, selected for
+        active capsuleers.
+      </p><a class="hero-action" href="#browse">Browse {sites.length} tools</a>
     </div>
   </section>
+  <div id="browse" class="container browse-sections">
+    <CategoryGrid /><Directory sites={sites} />
+  </div>
 </BaseLayout>
