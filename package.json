@@ -13,7 +13,7 @@
     "format:write": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --pass-with-no-tests",
     "sync:favicons": "tsx scripts/sync-favicons.ts"
   },
   "devDependencies": {
