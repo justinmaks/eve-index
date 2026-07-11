@@ -1,0 +1,85 @@
+name: Link health
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 8 * * 1"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: link-health
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Check listing links
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Ensure link-health label exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh label create link-health \
+            --color B60205 \
+            --description "Automated listing link failures" \
+            --force
+
+      - name: Check external listing links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --verbose "src/content/sites/*.md"
+          fail: false
+          jobSummary: true
+          output: lychee/out.md
+
+      - name: Create or update failure issue
+        if: steps.lychee.outputs.exit_code != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          issue_number="$(gh issue list \
+            --label link-health \
+            --state open \
+            --limit 1 \
+            --json number \
+            --jq '.[0].number')"
+
+          if [ -n "$issue_number" ]; then
+            gh issue edit "$issue_number" \
+              --title "Listing link health failures" \
+              --body-file lychee/out.md
+          else
+            gh issue create \
+              --title "Listing link health failures" \
+              --label link-health \
+              --body-file lychee/out.md
+          fi
+
+      - name: Close resolved failure issue
+        if: steps.lychee.outputs.exit_code == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          issue_number="$(gh issue list \
+            --label link-health \
+            --state open \
+            --limit 1 \
+            --json number \
+            --jq '.[0].number')"
+
+          if [ -n "$issue_number" ]; then
+            gh issue close "$issue_number" \
+              --comment "The latest scheduled check found no broken listing links."
+          fi
