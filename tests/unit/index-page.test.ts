@@ -33,4 +33,13 @@ describe("the root page", () => {
     expect(packageJson).toContain('"test:e2e": "playwright test --pass-with-no-tests"');
     expect(playwrightConfig).toContain('testDir: "./tests/e2e"');
   });
+
+  it("limits Vitest discovery to unit tests", async () => {
+    const vitestConfig = await readFile(
+      new URL("../../vitest.config.ts", import.meta.url),
+      "utf8",
+    ).catch(() => "");
+
+    expect(vitestConfig).toContain('include: ["tests/unit/**/*.test.ts"]');
+  });
 });
