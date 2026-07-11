@@ -1,6 +1,9 @@
 .superpowers/
 .worktrees/
+.playwright-mcp/
 docs/
+AGENTS.md
+eve-online-index.zip
 .astro/
 dist/
 test-results/
