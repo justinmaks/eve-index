@@ -1,0 +1,111 @@
+name: Suggest a tool
+description: Propose an active, useful third-party EVE Online tool for editorial review.
+title: "[Tool]: "
+labels:
+  - suggestion
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a tool. Search existing listings and issues first. Inclusion is editorially reviewed and is not guaranteed.
+
+  - type: input
+    id: name
+    attributes:
+      label: Tool name
+      description: Use the name shown by the service itself.
+      placeholder: zKillboard
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Canonical URL
+      description: Link directly to the official service, without referral or tracking parameters.
+      placeholder: https://example.com/
+    validations:
+      required: true
+
+  - type: textarea
+    id: purpose
+    attributes:
+      label: What does the tool do?
+      description: Explain its practical EVE Online use and intended users.
+      placeholder: This tool helps capsuleers...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Primary category
+      description: Choose the closest primary use. Maintainers may adjust this during review.
+      options:
+        - Combat & PvP
+        - Exploration
+        - Abyssal
+        - Industry & Mining
+        - Planetary Interaction
+        - Markets & Trade
+        - Wormholes
+        - Intel & Safety
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Suggested tags
+      description: List one to five short tags that materially describe the tool.
+      placeholder: markets, trade
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Proposed directory description
+      description: Write a neutral, factual description in 20 to 180 characters. Avoid promotional claims.
+      placeholder: Market data and tools for tracking EVE Online trade activity.
+    validations:
+      required: true
+
+  - type: textarea
+    id: usefulness
+    attributes:
+      label: Why is it useful?
+      description: Describe the value you have verified. Note login requirements, paid features, limitations, or caveats.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Your relationship to the tool
+      description: Disclose ownership, development work, sponsorship, or other affiliation.
+      options:
+        - I am not affiliated with this tool
+        - I use or have evaluated this tool
+        - I own, maintain, or contribute to this tool
+        - I have another affiliation described below
+    validations:
+      required: true
+
+  - type: textarea
+    id: relationship_details
+    attributes:
+      label: Additional context
+      description: Explain any affiliation, ownership changes, known outages, or other context relevant to review.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I searched existing listings and open issues for duplicates.
+          required: true
+        - label: I verified that the canonical URL is currently reachable and represents the named tool.
+          required: true
+        - label: This submission follows the repository's contribution guidelines and Code of Conduct.
+          required: true
