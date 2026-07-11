@@ -64,13 +64,21 @@ export const categories = [
 export const tags = [
   "abyssal",
   "combat",
+  "exploration",
   "filaments",
+  "fitting",
   "gatecamps",
+  "industry",
   "intel",
   "killmails",
   "markets",
+  "mining",
+  "pi",
   "pvp",
+  "reference",
+  "scanning",
   "trade",
+  "wormholes",
 ] as const;
 
 export type Tag = (typeof tags)[number];
