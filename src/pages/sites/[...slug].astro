@@ -1,7 +1,8 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import ExternalLink from "../../components/ExternalLink.astro";
-import { categoryBySlug, faviconUrl } from "../../lib/sites";
+import FaviconTile from "../../components/FaviconTile.astro";
+import { categoryBySlug } from "../../lib/sites";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
@@ -19,7 +20,6 @@ const { site } = Astro.props;
 const { Content } = await render(site);
 const { name, url, summary, category, tags, repository } = site.data;
 const categoryRecord = categoryBySlug(category);
-const initial = name.charAt(0).toUpperCase();
 ---
 
 <BaseLayout title={name} description={summary}>
@@ -28,17 +28,7 @@ const initial = name.charAt(0).toUpperCase();
       >&#8592; {categoryRecord?.label}</a
     >
     <header class="detail-header">
-      <span class="favicon-tile detail-favicon" aria-hidden="true"
-        ><img
-          src={faviconUrl(url)}
-          alt=""
-          width="48"
-          height="48"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        /><span class="favicon-letter" style="display:none">{initial}</span
-        ></span
-      >
-      >
+      <FaviconTile name={name} url={url} size={48} class="detail-favicon" />
       <div>
         <p class="eyebrow">Verified utility record</p><h1>{name}</h1><p>
           {summary}

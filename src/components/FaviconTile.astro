@@ -1,0 +1,46 @@
+---
+import { faviconUrl } from "../lib/sites";
+
+interface Props {
+  name: string;
+  url: string;
+  size?: 32 | 48;
+  class?: string;
+  loading?: "eager" | "lazy";
+}
+
+const {
+  name,
+  url,
+  size = 32,
+  class: className,
+  loading = "eager",
+} = Astro.props;
+const initial = name.charAt(0).toUpperCase();
+---
+
+<span class:list={["favicon-tile", className]} aria-hidden="true">
+  <img
+    src={faviconUrl(url)}
+    alt=""
+    width={size}
+    height={size}
+    loading={loading}
+    data-favicon-image
+  />
+  <span class="favicon-letter" hidden data-favicon-fallback>{initial}</span>
+</span>
+
+<script>
+  for (const image of document.querySelectorAll<HTMLImageElement>(
+    "[data-favicon-image]",
+  )) {
+    if (image.dataset.fallbackReady) continue;
+    image.dataset.fallbackReady = "true";
+    image.addEventListener("error", () => {
+      image.hidden = true;
+      const fallback = image.nextElementSibling;
+      if (fallback instanceof HTMLElement) fallback.hidden = false;
+    });
+  }
+</script>
