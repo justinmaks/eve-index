@@ -1,4 +1,24 @@
 import { expect, test } from "@playwright/test";
+test("links the card to its detail page and the tool name to its website", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const card = page.locator("[data-site-card]", { hasText: "Anoik.is" });
+  const toolLink = card.getByRole("link", {
+    name: "Anoik.is (opens in a new tab)",
+    exact: true,
+  });
+
+  await expect(
+    card.getByRole("link", { name: "View Anoik.is details" }),
+  ).toHaveAttribute("href", "/sites/anoik-is/");
+  await expect(toolLink).toHaveAttribute("href", "https://anoik.is/");
+  await expect(toolLink).toHaveAttribute("target", "_blank");
+
+  await card.click({ position: { x: 12, y: 12 } });
+  await expect(page).toHaveURL((url) => url.pathname === "/sites/anoik-is/");
+});
+
 test("filters listings by text, category, and all selected tags", async ({
   page,
 }) => {
