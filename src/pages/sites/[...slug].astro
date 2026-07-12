@@ -28,7 +28,13 @@ const categoryRecord = categoryBySlug(category);
       >&#8592; {categoryRecord?.label}</a
     >
     <header class="detail-header">
-      <FaviconTile name={name} url={url} size={48} class="detail-favicon" />
+      <FaviconTile
+        name={name}
+        url={url}
+        size={48}
+        class="detail-favicon"
+        loading="lazy"
+      />
       <div>
         <p class="eyebrow">Verified utility record</p><h1>{name}</h1><p>
           {summary}
