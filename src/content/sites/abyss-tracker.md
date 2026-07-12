@@ -1,6 +1,6 @@
 ---
 name: Abyss Tracker
-url: https://abyss.eve-nt.uk/
+url: https://abysstracker.com/
 summary: A directory and tracker for Abyssal Deadspace activity in EVE Online.
 category: abyssal
 tags:
