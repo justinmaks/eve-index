@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "favicon": "node scripts/generate-favicon.mjs",
     "check": "astro check",
     "build": "astro check && astro build && pagefind --site dist",
     "preview": "astro preview",
