@@ -25,6 +25,10 @@ const searchText = [
   data-tags={tags.join(" ")}
   data-search={searchText}
 >
+  <a
+    class="site-card-detail-link"
+    href={`/sites/${site.id}/`}
+    aria-label={`View ${name} details`}></a>
   <div class="site-card-heading">
     <span class="favicon-tile" aria-hidden="true"
       ><img
@@ -37,7 +41,9 @@ const searchText = [
       /><span class="favicon-letter" style="display:none">{initial}</span></span
     ><div>
       <p class="site-card-category">{categoryBySlug(category)?.label}</p><h3>
-        <a href={`/sites/${site.id}/`}>{name}</a>
+        <a href={url} target="_blank" rel="noopener noreferrer"
+          >{name}<span class="sr-only"> (opens in a new tab)</span></a
+        >
       </h3>
     </div>
   </div>
