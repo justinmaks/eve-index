@@ -27,6 +27,15 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: repository
+    attributes:
+      label: Source repository URL (optional)
+      description: If the tool has a separate public source repo (e.g. on GitHub), link it here. Leave blank if the canonical URL already points to the repository.
+      placeholder: https://github.com/example/repo
+    validations:
+      required: false
+
   - type: textarea
     id: purpose
     attributes:
