@@ -14,6 +14,25 @@ test("category and detail pages render editorial content", async ({ page }) => {
   await expect(link).toHaveAttribute("rel", "noopener noreferrer");
 });
 
+test("detail page renders an optional source code link", async ({ page }) => {
+  await page.goto("/sites/jeveassets/");
+  await expect(page.getByRole("heading", { name: "jEveAssets" })).toBeVisible();
+  const sourceLink = page.getByRole("link", { name: /Source code/ });
+  await expect(sourceLink).toHaveAttribute(
+    "href",
+    "https://github.com/GoldenGnu/jeveassets",
+  );
+  await expect(sourceLink).toHaveAttribute("target", "_blank");
+  await expect(sourceLink).toHaveAttribute("rel", "noopener noreferrer");
+});
+
+test("detail page omits a source code link when none is declared", async ({
+  page,
+}) => {
+  await page.goto("/sites/zkillboard/");
+  await expect(page.getByRole("link", { name: /Source code/ })).toHaveCount(0);
+});
+
 test("about and search pages expose their primary workflows", async ({
   page,
 }) => {

@@ -24,6 +24,7 @@ Listings are Markdown files in [`src/content/sites`](src/content/sites/). Use a 
 ---
 name: Example Tool
 url: https://example.com/
+repository: https://github.com/example/repo
 summary: A neutral 20-to-180-character explanation of the tool's EVE Online use.
 category: markets-trade
 tags:
@@ -32,6 +33,8 @@ tags:
 status: active
 ---
 ```
+
+`repository` is optional. Use it only when the website (`url`) and the source repo are genuinely distinct destinations (e.g. a hosted app plus a GitHub project). For desktop apps or projects where GitHub is the canonical destination, set `url` to the repository directly and omit `repository`.
 
 Use category and tag values from [`src/data/taxonomy.ts`](src/data/taxonomy.ts). Do not include tracking links, referral codes, rankings, testimonials, or advertising copy. Add Markdown below the frontmatter only when users need important requirements, limitations, or safety notes.
 

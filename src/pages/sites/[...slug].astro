@@ -17,7 +17,7 @@ interface Props {
 }
 const { site } = Astro.props;
 const { Content } = await render(site);
-const { name, url, summary, category, tags } = site.data;
+const { name, url, summary, category, tags, repository } = site.data;
 const categoryRecord = categoryBySlug(category);
 const initial = name.charAt(0).toUpperCase();
 ---
@@ -49,6 +49,17 @@ const initial = name.charAt(0).toUpperCase();
       {tags.map((tag) => <li>{tag}</li>)}
     </ul>
     <div class="editorial-copy"><Content /></div>
-    <ExternalLink class="primary-link" href={url} label={`Visit ${name}`} />
+    <div class="detail-links">
+      <ExternalLink class="primary-link" href={url} label={`Visit ${name}`} />
+      {
+        repository && (
+          <ExternalLink
+            class="repository-link"
+            href={repository}
+            label={`Source code`}
+          />
+        )
+      }
+    </div>
   </article>
 </BaseLayout>
