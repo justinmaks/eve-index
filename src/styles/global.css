@@ -491,10 +491,32 @@ textarea {
   text-transform: uppercase;
 }
 .site-card {
+  position: relative;
   min-width: 0;
   padding: 1rem;
   border: 1px solid var(--line);
   background: var(--surface-raised);
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+.site-card:hover,
+.site-card:focus-within {
+  border-color: var(--amber);
+  background: color-mix(in srgb, var(--surface-raised) 92%, var(--amber));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--amber) 35%, transparent);
+  transform: translateY(-2px);
+}
+.site-card-detail-link {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+}
+.site-card-detail-link:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
 }
 .site-card[hidden] {
   display: none;
@@ -509,8 +531,22 @@ textarea {
   font-size: 1.1rem;
 }
 .site-card-heading h3 a {
+  position: relative;
+  z-index: 2;
   min-height: auto;
   text-decoration: none;
+}
+.site-card-heading h3 a:hover {
+  text-decoration: underline;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-card {
+    transition: none;
+  }
+  .site-card:hover,
+  .site-card:focus-within {
+    transform: none;
+  }
 }
 .site-card-category {
   margin: 0;
