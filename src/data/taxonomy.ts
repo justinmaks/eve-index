@@ -5,6 +5,7 @@ export const categorySlugs = [
   "industry-mining",
   "planetary-interaction",
   "markets-trade",
+  "hauling-logistics",
   "wormholes",
   "intel-safety",
 ] as const;
@@ -42,7 +43,13 @@ export const categories = [
   {
     slug: "markets-trade",
     label: "Markets & Trade",
-    description: "Tools for market data, pricing, hauling, and trade analysis.",
+    description: "Tools for market data, pricing, and trade analysis.",
+  },
+  {
+    slug: "hauling-logistics",
+    label: "Hauling & Logistics",
+    description:
+      "Player-run freight services and tools for moving goods around New Eden.",
   },
   {
     slug: "wormholes",
@@ -68,6 +75,7 @@ export const tags = [
   "filaments",
   "fitting",
   "gatecamps",
+  "hauling",
   "industry",
   "intel",
   "killmails",
