@@ -40,7 +40,7 @@ test("shows an empty state when no listing matches", async ({ page }) => {
   await page.goto("/");
   await page.getByLabel("Search tools").fill("not-a-real-capsuleer-tool");
   await expect(page.getByText("No tools match these filters.")).toBeVisible();
-  await expect(page.getByText("0 tools")).toBeVisible();
+  await expect(page.getByText("0 tools", { exact: true })).toBeVisible();
 });
 test("keeps directory controls usable on a phone viewport", async ({
   page,
